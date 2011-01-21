@@ -1,0 +1,208 @@
+<project name="isfdb">
+
+  <!-- ............................................................. -->
+  <!-- CREATE THIS FILE TO SPECIFY mysql.pass and mysql.jar.file -->
+  <!-- OR TO OVERRIDE PROPERTIES BELOW -->
+
+  <property file="local.properties" />
+
+  <!-- ............................................................. -->
+  <!-- PROPERTIES THAT CAN AND SHOULD BE OVERRIDDEN AS NEEDED -->
+
+  <property name="url.isfdb.root" 
+            value="http://isfdb.s3.amazonaws.com" />
+  <property name="url.isfdb.backup" 
+            value="${url.isfdb.root}/backups/backup-2011-01-17.zip" />
+
+  <!-- :TODO: anyway to dynamicly pick a mirror URL? -->
+  <property name="url.apache.mirror" 
+            value="http://mirror.cloudera.com/apache" />
+  <property name="apache.solr.version" value="1.4.1" />
+  <property name="url.apache.solr" 
+            value="${url.apache.mirror}/lucene/solr/${apache.solr.version}/apache-solr-${apache.solr.version}.zip" />
+  
+  <property name="mysql.user"     value="root" />
+  <property name="mysql.host"     value="localhost" />
+  <property name="mysql.port"     value="3306" />
+  <property name="mysql.db"       value="isfdb" />
+
+  <property name="mysql.exe"      value="mysql" />
+  
+  <property name="jetty.dir" 
+            location="work/apache-solr-${apache.solr.version}/example/" />
+
+  <!-- if you find a need to modify anything below this point, please
+       let me know and i'll investigate parameterizing it with properties
+    -->
+            
+  <!-- ............................................................. -->
+  <!-- TARGETS -->
+
+  <!-- ... -->
+  <target name="fetch"
+          description="fetches external files">
+
+    <mkdir dir="downloads" />
+    <get src="${url.isfdb.backup}" 
+         dest="downloads/isfdb.backup.zip"
+         usetimestamp="true" />
+
+    <get src="${url.apache.solr}" 
+         dest="downloads/apache.solr.zip"
+         usetimestamp="true" />
+
+  </target>
+
+  <!-- ... -->
+  <target name="extract"
+          description="Extracts downloaded files into work dir">
+
+    <fail message="You must run 'ant fetch' at least once">
+      <condition>
+        <not>
+          <and>
+            <available file="downloads/isfdb.backup.zip" />
+            <available file="downloads/apache.solr.zip" />
+          </and>
+        </not>
+      </condition>
+    </fail>
+
+    <mkdir dir="work/isfdb-data/raw" />
+    <unzip src="downloads/isfdb.backup.zip"
+           dest="work/isfdb-data/raw"
+           overwrite="false" />
+    <!-- get the most recent backup file in isfdb-data/raw/ (based on
+         the datestamp in name) as a predictable file name in
+         /isfdb-data/ to load latter 
+      -->
+    <copy todir="work/isfdb-data/">
+      <fileset dir="work/isfdb-data/raw">
+        <!-- http://www.norio.be/blog/2009/05/ant-selector-most-recent-file -->
+        <scriptselector language="javascript">
+          var files = basedir.list();
+          var mostRecent = true;
+          for(i = 0; i &lt; files.length; i++) {
+            mostRecent = mostRecent &amp;&amp; (filename &gt;= files[i]);
+          }
+          self.setSelected(mostRecent);
+        </scriptselector>
+      </fileset>
+      <mapper type="merge" to="backup-current"/>
+    </copy>
+
+    <unzip src="downloads/apache.solr.zip"
+           dest="work"
+           overwrite="false" />
+
+  </target>
+  
+  <!-- ... -->
+  <target name=".mysql-check">
+    <!-- NO DESCRIPTION: not something users should run directly -->
+    <!-- verifies that we can use mysql -->
+
+    <echo>mysql.user=${mysql.user}, mysql.host=${mysql.host}, mysql.port=${mysql.port}, mysql.db=${mysql.db}, mysql.jar.file=${mysql.jar.file}</echo>
+
+    <fail message="MySql does not seem to be listening on mysql.host=${mysql.host}, mysql.port=${mysql.port}" >
+      <condition>
+        <not>
+          <socket server="${mysql.host}" port="${mysql.port}" />
+        </not>
+      </condition>
+    </fail>
+   
+    <fail message="mysql.pass must be specified, either in local.properties, or on the ant command line using -Dmysql.pass=foobar" 
+          unless="mysql.pass"/>
+
+    <fail message="mysql.jar.file must be specified, either in local.properties, or on the ant command line using -Dmysql.jar.file=/path/mysql.jar" 
+          unless="mysql.jar.file"/>
+    
+    <fail message="Can't find mysql.jar.file=${mysql.jar.file}" >
+      <condition>
+        <not>
+          <available file="${mysql.jar.file}" />
+        </not>
+      </condition>
+    </fail>
+    <mkdir dir="work" />
+    <copy file="${mysql.jar.file}" tofile="work/mysql-client.jar" />
+    
+
+    <!-- use 'select 1' instead of mysqladmin 'ping' so we can check
+         that db exists at the same time
+      -->
+    <exec executable="${mysql.exe}"
+          inputstring="select 'Mysql is up!';"
+          failonerror="true">
+      <arg value="-h" />
+      <arg value="${mysql.host}" />
+      <arg value="--database" />
+      <arg value="${mysql.db}" />
+      <arg value="-u" />
+      <arg value="${mysql.user}" />
+      <arg value="--password=${mysql.pass}" />
+    </exec>
+
+  </target>
+
+
+  <!-- ... -->
+  <target name="load-mysql"
+          description="Load ISFDB Data into mysql"
+          depends=".mysql-check,extract">
+
+    <echo>Loading MySql Data, this may take some time...</echo>
+    <exec executable="${mysql.exe}"
+          input="work/isfdb-data/backup-current"
+          failonerror="true">
+      <arg value="-h" />
+      <arg value="${mysql.host}" />
+      <arg value="--database" />
+      <arg value="${mysql.db}" />
+      <arg value="-u" />
+      <arg value="${mysql.user}" />
+      <arg value="--password=${mysql.pass}" />
+    </exec>
+  </target>
+
+  <!-- ... -->
+  <target name="build"
+          description="Compiles code, and sets up isfdb-solr-home">
+
+    <!-- for now, no code to compile -->
+    <copy todir="work/isfdb-solr-home">
+      <fileset dir="src/isfdb-solr-home/"/>
+    </copy>
+    <mkdir dir="work/isfdb-solr-home/lib" />
+    <copy file="work/mysql-client.jar"
+          todir="work/isfdb-solr-home/lib" />
+  </target>
+
+  <!-- ... -->
+  <target name="run-solr" depends=".mysql-check,build">
+    <java jar="${jetty.dir}/start.jar" 
+          fork="true" 
+          dir="${jetty.dir}" >
+      <sysproperty key="solr.solr.home" file="work/isfdb-solr-home" />
+      <syspropertyset>
+        <propertyref prefix="mysql." />
+      </syspropertyset>
+    </java>
+
+  </target>
+
+  <!-- ... -->
+  <target name="clean"
+          description="Cleans up temporary files">
+    <delete dir="work" />
+  </target>
+
+  <!-- ... -->
+  <target name="clean-all"
+          description="Cleans up everything, including large downloads"
+          depends="clean">
+    <delete dir="downloads" />
+  </target>
+
+</project>

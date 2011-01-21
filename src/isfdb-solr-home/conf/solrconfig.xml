@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--
+
+ This is an *extremely* trivial example Solr config file
+
+ For a more general example, and an exmplanation of some of the
+ options in this file...
+
+http://svn.apache.org/repos/asf/lucene/dev/trunk/solr/example/solr/conf/solrconfig.xml
+-->
+<config>
+
+  <requestDispatcher handleSelect="true" >
+    <!--
+        emableRemoteStreaming="true" let's us load data from local
+        (or remote) files by file name (or url)
+        
+        Make sure your system is protected before enabling
+        remote streaming in real life!
+      -->
+    <requestParsers enableRemoteStreaming="true" multipartUploadLimitInKB="2048" />
+  </requestDispatcher>
+
+  <!-- basic handler supporting default query syntax -->
+  <requestHandler name="standard" class="solr.SearchHandler" default="true">
+     <lst name="defaults">
+       <str name="echoParams">explicit</str>
+     </lst>
+  </requestHandler>
+
+  <requestHandler name="/dataimport" class="solr.DataImportHandler">
+    <!-- must be 'defaults',
+         see https://issues.apache.org/jira/browse/SOLR-2115 
+      -->
+    <lst name="defaults">
+      <str name="config">isfdb-dih.xml</str>
+      <str name="jdbc.url">jdbc:mysql://${mysql.host}:${mysql.port}/${mysql.db}?zeroDateTimeBehavior=convertToNull</str>
+      <str name="jdbc.user">${mysql.user}</str>
+      <str name="jdbc.pass">${mysql.pass}</str>
+    </lst>
+  </requestHandler>
+
+  <requestHandler name="/admin/" class="solr.admin.AdminHandlers" />
+
+  <admin>
+    <defaultQuery>*:*</defaultQuery>
+  </admin>
+</config>

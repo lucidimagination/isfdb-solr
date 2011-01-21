@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<schema name="isfdb" version="1.2">
+  <!--
+    This is an *extremely* trivial example Solr schema file
+
+    For a better example, and an exmplanation of some of the
+    options in this file...
+    
+http://svn.apache.org/repos/asf/lucene/dev/trunk/solr/example/solr/conf/schema.xml
+
+    -->
+
+  <!-- index anything and everything as a simple string -->
+  <types>
+    <fieldType name="string" class="solr.StrField"/>
+  </types>
+  <fields>
+    <field name="ca_id" 
+           type="string" />
+    <field name="catchall" 
+           type="string" 
+           stored="false" 
+           multiValued="true" />
+    
+    <dynamicField name="*" 
+                  type="string" 
+                  indexed="true" 
+                  stored="true"
+                  multiValued="true" />
+  </fields>
+
+  <!-- copy everything into one big field for easy searching -->
+  <copyField source="*" dest="catchall"/>
+
+  <!-- A unique Key field isn't neccessary, but it's the only way Solr -->
+  <!-- can automaticly replace docs when they change -->
+  <!-- DataImportHandler is also very unhappy if you don't have one -->
+  <uniqueKey>ca_id</uniqueKey>
+
+  <!-- It's a *very* good idea to have a default search field -->
+  <defaultSearchField>catchall</defaultSearchField>
+
+</schema>

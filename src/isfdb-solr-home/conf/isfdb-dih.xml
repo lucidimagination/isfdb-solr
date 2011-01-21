@@ -1,0 +1,20 @@
+<dataConfig>
+    <dataSource type="JdbcDataSource" 
+                driver="com.mysql.jdbc.Driver"
+                encoding="UTF-8"
+                batchSize="-1" 
+                url="${dataimporter.request.jdbc.url}" 
+                user="${dataimporter.request.jdbc.user}" 
+                password="${dataimporter.request.jdbc.pass}"
+                />
+    <document>
+        <entity name="author_title" 
+                pk="ca_id"
+                query="select * 
+                       from authors A, canonical_author CA, titles T 
+                       where  A.author_id = CA.author_id
+                       and    CA.title_id = T.title_id">
+                       
+        </entity>
+    </document>
+</dataConfig>
