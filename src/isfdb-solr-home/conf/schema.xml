@@ -14,9 +14,26 @@ http://svn.apache.org/repos/asf/lucene/dev/trunk/solr/example/solr/conf/schema.x
   <types>
     <fieldType name="string" class="solr.StrField"/>
     <fieldType name="url" class="solr.StrField" indexed="false" stored="true" />
+
+    <fieldType name="ignored" class="solr.StrField" 
+               indexed="false" stored="false" />
+               
   </types>
+    
   <fields>
     <field name="ca_id" type="string" />
+
+    <!-- no idea what this is, every doc has same value -->
+    <field name="title_ctl" type="ignored" />
+
+    <!-- ids and foreign keys ... keep an eye on these for later -->
+    <field name="author_id" type="ignored" />
+    <field name="title_id" type="ignored" />
+    <field name="series_id" type="ignored" />
+    <field name="title_parent" type="ignored" />
+    <field name="title_synopsis" type="ignored" />
+
+    <!-- external URLs -->
     <field name="author_image" type="url" />
     <field name="author_imdb" type="url" />
     <field name="author_wikipedia" type="url" />
