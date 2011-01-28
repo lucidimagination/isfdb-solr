@@ -17,6 +17,8 @@ http://svn.apache.org/repos/asf/lucene/dev/trunk/solr/example/solr/conf/schema.x
   </types>
   <fields>
     <field name="ca_id" type="string" />
+    <field name="author_image" type="url" />
+    <field name="author_imdb" type="url" />
     <field name="author_wikipedia" type="url" />
     <field name="title_wikipedia" type="url" />
 
