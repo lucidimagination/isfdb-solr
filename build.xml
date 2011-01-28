@@ -180,7 +180,8 @@
   </target>
 
   <!-- ... -->
-  <target name="run-solr" depends=".mysql-check,build">
+  <target name="run-solr" depends=".mysql-check,build"
+          description="Run's Solr at http://localhost:8983/solr/ ... use Ctrl-C to stop">
     <java jar="${jetty.dir}/start.jar" 
           fork="true" 
           dir="${jetty.dir}" >
