@@ -13,10 +13,13 @@ http://svn.apache.org/repos/asf/lucene/dev/trunk/solr/example/solr/conf/schema.x
   <!-- index anything and everything as a simple string -->
   <types>
     <fieldType name="string" class="solr.StrField"/>
+    <fieldType name="url" class="solr.StrField" indexed="false" stored="true" />
   </types>
   <fields>
-    <field name="ca_id" 
-           type="string" />
+    <field name="ca_id" type="string" />
+    <field name="author_wikipedia" type="url" />
+    <field name="title_wikipedia" type="url" />
+
     <field name="catchall" 
            type="string" 
            stored="false" 
