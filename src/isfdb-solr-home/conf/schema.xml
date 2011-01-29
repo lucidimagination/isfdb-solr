@@ -12,6 +12,8 @@ http://svn.apache.org/repos/asf/lucene/dev/trunk/solr/example/solr/conf/schema.x
 
   <!-- index anything and everything as a simple string -->
   <types>
+    <fieldType name="float" class="solr.TrieFloatField"/>
+    <fieldType name="int" class="solr.TrieIntField"/>
     <fieldType name="string" class="solr.StrField"/>
     <fieldType name="url" class="solr.StrField" indexed="false" stored="true" />
 
@@ -22,9 +24,25 @@ http://svn.apache.org/repos/asf/lucene/dev/trunk/solr/example/solr/conf/schema.x
     
   <fields>
     <field name="ca_id" type="string" />
+    
+    <!-- broad class of title, good for faceting -->
+    <field name="title_ttype" type="string" />
 
     <!-- no idea what this is, every doc has same value -->
     <field name="title_ctl" type="ignored" />
+
+    <!-- some sort of coded values, might be useful for faceting -->
+    <field name="ca_status" type="string" />
+    <field name="author_marque" type="string" />
+
+    <!-- numeric values that might come in hand for relevancy biasing
+         (they seem to relate to populatiry)
+      -->
+    <field name="author_annualviews" type="int" />
+    <field name="author_views" type="int" />
+    <field name="title_views" type="int" />
+    <field name="title_annualviews" type="int" />
+    <field name="title_rating" type="float" />
 
     <!-- ids and foreign keys ... keep an eye on these for later -->
     <field name="author_id" type="ignored" />
