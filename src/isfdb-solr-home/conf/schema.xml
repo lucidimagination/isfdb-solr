@@ -54,9 +54,16 @@ http://svn.apache.org/repos/asf/lucene/dev/trunk/solr/example/solr/conf/schema.x
     <field name="title_annualviews" type="int" />
     <field name="title_rating" type="float" />
 
+    <!-- appears to be the sequence of a title in it's series (if it
+         is in a series)
+         on that assumption, let's use a default of -1 to mean "not in series"
+      -->
+    <field name="title_seriesnum" type="int" default="-1" />
+
     <!-- dates -->
     <field name="author_birthdate" type="date" />
     <field name="author_deathdate" type="date" />
+    <field name="title_copyright" type="date" />
 
     <!-- text -->
     <field name="author_legalname" type="simpletext" />
@@ -70,6 +77,7 @@ http://svn.apache.org/repos/asf/lucene/dev/trunk/solr/example/solr/conf/schema.x
     <!-- ids and foreign keys ... keep an eye on these for later -->
     <field name="author_id" type="ignored" />
     <field name="title_id" type="ignored" />
+    <field name="note_id" type="ignored" />
     <field name="series_id" type="ignored" />
     <field name="title_parent" type="ignored" />
     <field name="title_synopsis" type="ignored" />
@@ -85,11 +93,6 @@ http://svn.apache.org/repos/asf/lucene/dev/trunk/solr/example/solr/conf/schema.x
            stored="false" 
            multiValued="true" />
     
-    <dynamicField name="*" 
-                  type="string" 
-                  indexed="true" 
-                  stored="true"
-                  multiValued="true" />
   </fields>
 
   <!-- copy everything into one big field for easy searching -->
