@@ -12,6 +12,7 @@ http://svn.apache.org/repos/asf/lucene/dev/trunk/solr/example/solr/conf/schema.x
 
   <!-- index anything and everything as a simple string -->
   <types>
+    <fieldType name="date" class="solr.TrieDateField"/>
     <fieldType name="float" class="solr.TrieFloatField"/>
     <fieldType name="int" class="solr.TrieIntField"/>
     <fieldType name="string" class="solr.StrField"/>
@@ -43,6 +44,10 @@ http://svn.apache.org/repos/asf/lucene/dev/trunk/solr/example/solr/conf/schema.x
     <field name="title_views" type="int" />
     <field name="title_annualviews" type="int" />
     <field name="title_rating" type="float" />
+
+    <!-- dates -->
+    <field name="author_birthdate" type="date" />
+    <field name="author_deathdate" type="date" />
 
     <!-- ids and foreign keys ... keep an eye on these for later -->
     <field name="author_id" type="ignored" />
