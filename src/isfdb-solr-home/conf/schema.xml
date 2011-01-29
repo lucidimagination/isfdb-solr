@@ -18,6 +18,15 @@ http://svn.apache.org/repos/asf/lucene/dev/trunk/solr/example/solr/conf/schema.x
     <fieldType name="string" class="solr.StrField"/>
     <fieldType name="url" class="solr.StrField" indexed="false" stored="true" />
 
+    <fieldType name="simpletext" 
+               class="solr.TextField" 
+               positionIncrementGap="100">
+      <analyzer>
+        <tokenizer class="solr.StandardTokenizerFactory"/>
+        <filter class="solr.LowerCaseFilterFactory"/>
+      </analyzer>
+    </fieldType>
+
     <fieldType name="ignored" class="solr.StrField" 
                indexed="false" stored="false" />
                
@@ -48,6 +57,15 @@ http://svn.apache.org/repos/asf/lucene/dev/trunk/solr/example/solr/conf/schema.x
     <!-- dates -->
     <field name="author_birthdate" type="date" />
     <field name="author_deathdate" type="date" />
+
+    <!-- text -->
+    <field name="author_legalname" type="simpletext" />
+    <field name="author_lastname" type="simpletext" />
+    <field name="author_canonical" type="simpletext" />
+    <field name="author_birthplace" type="simpletext" />
+    <field name="title_storylen" type="simpletext" />
+    <field name="title_translator" type="simpletext" />
+    <field name="title_title" type="simpletext" />
 
     <!-- ids and foreign keys ... keep an eye on these for later -->
     <field name="author_id" type="ignored" />
