@@ -38,15 +38,14 @@ http://svn.apache.org/repos/asf/lucene/dev/trunk/solr/example/solr/conf/schema.x
     <!-- broad class of title, good for faceting -->
     <field name="title_ttype" type="string" />
 
-    <!-- no idea what this is, every doc has same value -->
-    <field name="title_ctl" type="ignored" />
-
-    <!-- some sort of coded values, might be useful for faceting -->
-    <field name="ca_status" type="string" />
+    <!-- indicates the author is relatively popular, and should be
+         "featured" on the front page of imdb.cml when new books come
+         out 
+      -->
     <field name="author_marque" type="string" />
 
     <!-- numeric values that might come in hand for relevancy biasing
-         (they seem to relate to populatiry)
+         (they all relate to popularity)
       -->
     <field name="author_annualviews" type="int" />
     <field name="author_views" type="int" />
@@ -75,12 +74,15 @@ http://svn.apache.org/repos/asf/lucene/dev/trunk/solr/example/solr/conf/schema.x
     <field name="title_title" type="simpletext" />
 
     <!-- ids and foreign keys ... keep an eye on these for later -->
+    <!--
     <field name="author_id" type="ignored" />
     <field name="title_id" type="ignored" />
-    <field name="note_id" type="ignored" />
+    <field name="title_note_id" type="ignored" />
+    <field name="author_note_id" type="ignored" />
     <field name="series_id" type="ignored" />
     <field name="title_parent" type="ignored" />
     <field name="title_synopsis" type="ignored" />
+    -->
 
     <!-- external URLs -->
     <field name="author_image" type="url" />
