@@ -8,22 +8,10 @@
                 password="${dataimporter.request.jdbc.pass}"
                 />
     <document>
-        <entity name="author_title" 
-                pk="ca_id"
-                query="select CA.ca_id as ca_id,
+        <entity name="title" 
+                pk="title_id"
+                query="select T.title_id as title_id,
                               T.title_ttype as title_ttype,
-                              A.author_marque as author_marque,
-                              A.author_annualviews as author_annualviews,
-                              A.author_views as author_views,
-                              A.author_birthdate as author_birthdate,
-                              A.author_deathdate as author_deathdate,
-                              A.author_legalname as author_legalname,
-                              A.author_lastname as author_lastname,
-                              A.author_canonical as author_canonical,
-                              A.author_birthplace as author_birthplace,
-                              A.author_image as author_image,
-                              A.author_imdb as author_imdb,
-                              A.author_wikipedia as author_wikipedia,
                               T.title_views as title_views,
                               T.title_annualviews as title_annualviews,
                               T.title_rating as title_rating,
@@ -33,11 +21,20 @@
                               T.title_translator as title_translator,
                               T.title_title as title_title,
                               T.title_wikipedia as title_wikipedia
-                       from authors A, canonical_author CA, titles T 
-                       where  A.author_id = CA.author_id
-                       and    CA.title_id = T.title_id
-                       and    CA.ca_status = 1">
-                       
+                       from titles T ">
+          <entity name="title_author"
+                  query="select CA.ca_id as ca_id,
+                                A.author_marque as author_marque,
+                                A.author_canonical as author_canonical,
+                                A.author_image as author_image,
+                                A.author_imdb as author_imdb,
+                                A.author_wikipedia as author_wikipedia
+                         from authors A, canonical_author CA 
+                         where  A.author_id = CA.author_id
+                         and    CA.title_id = ${title.title_id}
+                         and    CA.ca_status = 1">
+
+          </entity>
         </entity>
     </document>
 </dataConfig>

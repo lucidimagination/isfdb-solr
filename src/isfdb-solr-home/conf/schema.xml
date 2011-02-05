@@ -1,16 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <schema name="isfdb" version="1.2">
-  <!--
-    This is an *extremely* trivial example Solr schema file
-
-    For a better example, and an exmplanation of some of the
-    options in this file...
-    
-http://svn.apache.org/repos/asf/lucene/dev/trunk/solr/example/solr/conf/schema.xml
-
-    -->
-
-  <!-- index anything and everything as a simple string -->
   <types>
     <fieldType name="date" class="solr.TrieDateField"/>
     <fieldType name="float" class="solr.TrieFloatField"/>
@@ -33,22 +22,20 @@ http://svn.apache.org/repos/asf/lucene/dev/trunk/solr/example/solr/conf/schema.x
   </types>
     
   <fields>
-    <field name="ca_id" type="string" />
+    <field name="title_id" type="string" />
     
     <!-- broad class of title, good for faceting -->
     <field name="title_ttype" type="string" />
 
     <!-- indicates the author is relatively popular, and should be
-         "featured" on the front page of imdb.cml when new books come
+         "featured" on the front page of imdb.com when new books come
          out 
       -->
-    <field name="author_marque" type="string" />
+    <field name="author_marque" type="string" multiValued="true" />
 
     <!-- numeric values that might come in hand for relevancy biasing
          (they all relate to popularity)
       -->
-    <field name="author_annualviews" type="int" />
-    <field name="author_views" type="int" />
     <field name="title_views" type="int" />
     <field name="title_annualviews" type="int" />
     <field name="title_rating" type="float" />
@@ -60,34 +47,26 @@ http://svn.apache.org/repos/asf/lucene/dev/trunk/solr/example/solr/conf/schema.x
     <field name="title_seriesnum" type="int" default="-1" />
 
     <!-- dates -->
-    <field name="author_birthdate" type="date" />
-    <field name="author_deathdate" type="date" />
     <field name="title_copyright" type="date" />
 
     <!-- text -->
-    <field name="author_legalname" type="simpletext" />
-    <field name="author_lastname" type="simpletext" />
     <field name="author_canonical" type="simpletext" />
-    <field name="author_birthplace" type="simpletext" />
     <field name="title_storylen" type="simpletext" />
     <field name="title_translator" type="simpletext" />
     <field name="title_title" type="simpletext" />
 
     <!-- ids and foreign keys ... keep an eye on these for later -->
     <!--
-    <field name="author_id" type="ignored" />
-    <field name="title_id" type="ignored" />
     <field name="title_note_id" type="ignored" />
-    <field name="author_note_id" type="ignored" />
     <field name="series_id" type="ignored" />
     <field name="title_parent" type="ignored" />
     <field name="title_synopsis" type="ignored" />
     -->
 
     <!-- external URLs -->
-    <field name="author_image" type="url" />
-    <field name="author_imdb" type="url" />
-    <field name="author_wikipedia" type="url" />
+    <field name="author_image" type="url" multiValued="true" />
+    <field name="author_imdb" type="url" multiValued="true" />
+    <field name="author_wikipedia" type="url" multiValued="true" />
     <field name="title_wikipedia" type="url" />
 
     <field name="catchall" 
@@ -103,7 +82,7 @@ http://svn.apache.org/repos/asf/lucene/dev/trunk/solr/example/solr/conf/schema.x
   <!-- A unique Key field isn't neccessary, but it's the only way Solr -->
   <!-- can automaticly replace docs when they change -->
   <!-- DataImportHandler is also very unhappy if you don't have one -->
-  <uniqueKey>ca_id</uniqueKey>
+  <uniqueKey>title_id</uniqueKey>
 
   <!-- It's a *very* good idea to have a default search field -->
   <defaultSearchField>catchall</defaultSearchField>
