@@ -50,7 +50,7 @@
     <field name="title_copyright" type="date" />
 
     <!-- text -->
-    <field name="author_canonical" type="simpletext" />
+    <field name="author_canonical" type="simpletext" multiValued="true"/>
     <field name="title_storylen" type="simpletext" />
     <field name="title_translator" type="simpletext" />
     <field name="title_title" type="simpletext" />
