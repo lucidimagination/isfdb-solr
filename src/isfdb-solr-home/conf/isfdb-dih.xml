@@ -21,19 +21,24 @@
                               T.title_translator as title_translator,
                               T.title_title as title_title,
                               T.title_wikipedia as title_wikipedia
-                       from titles T ">
+                       from   titles T ">
           <entity name="title_author"
-                  query="select CA.ca_id as ca_id,
-                                A.author_marque as author_marque,
-                                A.author_canonical as author_canonical,
-                                A.author_image as author_image,
-                                A.author_imdb as author_imdb,
-                                A.author_wikipedia as author_wikipedia
-                         from authors A, canonical_author CA 
-                         where  A.author_id = CA.author_id
-                         and    CA.title_id = ${title.title_id}
-                         and    CA.ca_status = 1">
-
+                  processor="CachedSqlEntityProcessor"
+                  where="title_id=title.title_id"
+                  query="select author_id, title_id 
+                         from   canonical_author
+                         where  ca_status = 1">
+            <entity name="author"
+                    processor="CachedSqlEntityProcessor"
+                    where="author_id=title_author.author_id"
+                    query="select A.author_id as author_id,
+                                  A.author_marque as author_marque,
+                                  A.author_canonical as author_canonical,
+                                  A.author_image as author_image,
+                                  A.author_imdb as author_imdb,
+                                  A.author_wikipedia as author_wikipedia
+                           from   authors A">
+            </entity>
           </entity>
         </entity>
     </document>
