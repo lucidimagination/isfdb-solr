@@ -26,6 +26,8 @@
          all types of documents
       -->
     <field name="doc_id" type="string" />
+    <!-- the type (or domain) of our document -->
+    <field name="doc_type" type="string" />
 
     <field name="title_id" type="string" />
     
