@@ -44,5 +44,20 @@
             </entity>
           </entity>
         </entity>
+        <entity name="author"
+                transformer="TemplateTransformer"
+                query="select A.author_id as author_id,
+                              A.author_marque as author_marque,
+                              A.author_canonical as author_canonical,
+                              A.author_legalname as author_legalname,
+                              A.author_birthdate as author_birthdate,
+                              A.author_deathdate as author_deathdate,
+                              A.author_image as author_image,
+                              A.author_imdb as author_imdb,
+                              A.author_wikipedia as author_wikipedia
+                       from   authors A">
+          <field  column="doc_id" template="AUTHOR_${author.author_id}" />
+          <field  column="doc_type" template="AUTHOR" />
+        </entity>
      </document>
 </dataConfig>

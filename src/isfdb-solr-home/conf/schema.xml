@@ -55,8 +55,11 @@
 
     <!-- dates -->
     <field name="title_copyright" type="date" />
+    <field name="author_birthdate" type="date" />
+    <field name="author_dathdate" type="date" />
 
     <!-- text -->
+    <field name="author_legalname" type="simpletext" multiValued="true"/>
     <field name="author_canonical" type="simpletext" multiValued="true"/>
     <field name="title_storylen" type="simpletext" />
     <field name="title_translator" type="simpletext" />
