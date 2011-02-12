@@ -9,6 +9,7 @@
                 />
     <document>
         <entity name="title" 
+                transformer="TemplateTransformer"
                 pk="title_id"
                 query="select T.title_id as title_id,
                               T.title_ttype as title_ttype,
@@ -22,6 +23,7 @@
                               T.title_title as title_title,
                               T.title_wikipedia as title_wikipedia
                        from   titles T ">
+          <field  column="doc_id" template="TITLE_${title.title_id}" />
           <entity name="title_author"
                   processor="CachedSqlEntityProcessor"
                   where="title_id=title.title_id"
@@ -41,5 +43,5 @@
             </entity>
           </entity>
         </entity>
-    </document>
+     </document>
 </dataConfig>
