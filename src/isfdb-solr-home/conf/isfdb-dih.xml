@@ -38,10 +38,14 @@
                     where="author_ids=title_author.author_x"
                     query="select A.author_id as author_ids,
                                   A.author_marque as author_marques,
-                                  A.author_canonical as author_names,
-                                  A.author_image as author_image_urls,
-                                  A.author_imdb as author_imdb_urls,
-                                  A.author_wikipedia as author_wikipedia_urls
+                                  IF(A.author_canonical IS NULL, '',
+                                     A.author_canonical) as author_names,
+                                  IF(A.author_image IS NULL, '',
+                                     A.author_image) as author_image_urls,
+                                  IF(A.author_imdb IS NULL, '',
+                                     A.author_imdb) as author_imdb_urls,
+                                  IF(A.author_wikipedia IS NULL, '',
+                                     A.author_wikipedia) as author_wikipedia_urls
                            from   authors A">
             </entity>
           </entity>

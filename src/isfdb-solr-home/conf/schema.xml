@@ -76,7 +76,7 @@
          "featured" on the front page of imdb.com when new books come
          out 
       -->
-    <field name="author_marques" type="string" multiValued="true" />
+    <field name="author_marques" type="int" multiValued="true" />
     
     <!-- numeric values that might come in hand for relevancy biasing
          (they all relate to popularity)
@@ -114,7 +114,7 @@
          "featured" on the front page of imdb.com when new books come
          out 
       -->
-    <field name="marque" type="string" multiValued="false" />
+    <field name="marque" type="int" multiValued="false" />
 
   </fields>
 
