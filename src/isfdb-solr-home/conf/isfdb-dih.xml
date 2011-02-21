@@ -12,16 +12,16 @@
                 transformer="TemplateTransformer"
                 pk="title_id"
                 query="select T.title_id as title_id,
-                              T.title_ttype as title_ttype,
-                              T.title_views as title_views,
-                              T.title_annualviews as title_annualviews,
-                              T.title_rating as title_rating,
-                              T.title_seriesnum as title_seriesnum,
-                              T.title_copyright as title_copyright,
-                              T.title_storylen as title_storylen,
-                              T.title_translator as title_translator,
-                              T.title_title as title_title,
-                              T.title_wikipedia as title_wikipedia
+                              T.title_ttype as ttype,
+                              T.title_views as views,
+                              T.title_annualviews as annualviews,
+                              T.title_rating as rating,
+                              T.title_seriesnum as seriesnum,
+                              T.title_copyright as copyright_date,
+                              T.title_storylen as storylen,
+                              T.title_translator as translator,
+                              T.title_title as imdb_url,
+                              T.title_wikipedia as wikipedia_url
                        from   titles T ">
           <field  column="doc_id" template="TITLE_${title.title_id}" />
           <field  column="doc_type" template="TITLE" />
@@ -33,13 +33,13 @@
                          where  ca_status = 1">
             <entity name="author"
                     processor="CachedSqlEntityProcessor"
-                    where="author_id=title_author.author_id"
-                    query="select A.author_id as author_id,
-                                  A.author_marque as author_marque,
-                                  A.author_canonical as author_canonical,
-                                  A.author_image as author_image,
-                                  A.author_imdb as author_imdb,
-                                  A.author_wikipedia as author_wikipedia
+                    where="author_ids=title_author.author_id"
+                    query="select A.author_id as author_ids,
+                                  A.author_marque as author_marques,
+                                  A.author_canonical as author_names,
+                                  A.author_image as author_image_urls,
+                                  A.author_imdb as author_imdb_urls,
+                                  A.author_wikipedia as author_wikipedia_urls
                            from   authors A">
             </entity>
           </entity>
@@ -47,14 +47,14 @@
         <entity name="author"
                 transformer="TemplateTransformer"
                 query="select A.author_id as author_id,
-                              A.author_marque as author_marque,
-                              A.author_canonical as author_canonical,
-                              A.author_legalname as author_legalname,
-                              A.author_birthdate as author_birthdate,
-                              A.author_deathdate as author_deathdate,
-                              A.author_image as author_image,
-                              A.author_imdb as author_imdb,
-                              A.author_wikipedia as author_wikipedia
+                              A.author_marque as marque,
+                              A.author_canonical as canonical_name,
+                              A.author_legalname as legal_name,
+                              A.author_birthdate as birth_date,
+                              A.author_deathdate as death_date,
+                              A.author_image as image_url,
+                              A.author_imdb as imdb_url,
+                              A.author_wikipedia as wikipedia_url
                        from   authors A">
           <field  column="doc_id" template="AUTHOR_${author.author_id}" />
           <field  column="doc_type" template="AUTHOR" />

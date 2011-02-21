@@ -29,41 +29,40 @@
     <!-- the type (or domain) of our document -->
     <field name="doc_type" type="string" />
 
-    <field name="title_id" type="string" />
+    <field name="title_id" type="string" multiValued="false"/>
+    <field name="author_id" type="string" multiValued="false"/>
+    <field name="author_ids" type="string" multiValued="true" />
     
     <!-- broad class of title, good for faceting -->
-    <field name="title_ttype" type="string" />
+    <field name="ttype" type="string" />
 
     <!-- indicates the author is relatively popular, and should be
          "featured" on the front page of imdb.com when new books come
          out 
       -->
-    <field name="author_marque" type="string" multiValued="true" />
+    <field name="author_marques" type="string" multiValued="true" />
+    <field name="marque" type="string" multiValued="false" />
 
     <!-- numeric values that might come in hand for relevancy biasing
          (they all relate to popularity)
       -->
-    <field name="title_views" type="int" />
-    <field name="title_annualviews" type="int" />
-    <field name="title_rating" type="float" />
+    <field name="views" type="int" />
+    <field name="annualviews" type="int" />
+    <field name="rating" type="float" />
 
     <!-- appears to be the sequence of a title in it's series (if it
          is in a series)
          on that assumption, let's use a default of -1 to mean "not in series"
       -->
-    <field name="title_seriesnum" type="int" default="-1" />
-
-    <!-- dates -->
-    <field name="title_copyright" type="date" />
-    <field name="author_birthdate" type="date" />
-    <field name="author_dathdate" type="date" />
+    <field name="seriesnum" type="int" default="-1" />
 
     <!-- text -->
-    <field name="author_legalname" type="simpletext" multiValued="true"/>
-    <field name="author_canonical" type="simpletext" multiValued="true"/>
-    <field name="title_storylen" type="simpletext" />
-    <field name="title_translator" type="simpletext" />
-    <field name="title_title" type="simpletext" />
+    <field name="author_names" type="simpletext" multiValued="true"/>
+    <field name="legal_name" type="simpletext" multiValued="true"/>
+    <field name="canonical_name" type="simpletext" multiValued="true"/>
+    <field name="storylen" type="simpletext" />
+    <field name="translator" type="simpletext" />
+    <field name="title" type="simpletext" />
 
     <!-- ids and foreign keys ... keep an eye on these for later -->
     <!--
@@ -74,10 +73,12 @@
     -->
 
     <!-- external URLs -->
-    <field name="author_image" type="url" multiValued="true" />
-    <field name="author_imdb" type="url" multiValued="true" />
-    <field name="author_wikipedia" type="url" multiValued="true" />
-    <field name="title_wikipedia" type="url" />
+    <dynamicField name="*_url" type="url" multiValued="false" />
+    <dynamicField name="*_urls" type="url" multiValued="true"/>
+
+    <!-- dates -->
+    <dynamicField name="*_date" type="date" />
+
 
     <field name="catchall" 
            type="string" 
