@@ -50,11 +50,11 @@
     <field name="annualviews" type="int" />
     <field name="rating" type="float" />
 
-    <!-- appears to be the sequence of a title in it's series (if it
-         is in a series)
-         on that assumption, let's use a default of -1 to mean "not in series"
+    <!-- The sequence of a title in it's series 
+         (if it is in a series)
+         DIH uses a default of -1 to mean "not in series" when it's NULL
       -->
-    <field name="seriesnum" type="int" default="-1" />
+    <field name="seriesnum" type="int" />
 
     <!-- text -->
     <field name="author_names" type="simpletext" multiValued="true"/>
