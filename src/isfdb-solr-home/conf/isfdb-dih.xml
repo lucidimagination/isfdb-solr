@@ -28,13 +28,14 @@
           <field  column="doc_type" template="TITLE" />
           <entity name="title_author"
                   processor="CachedSqlEntityProcessor"
-                  where="title_id=title.title_id"
-                  query="select author_id, title_id 
+                  where="title_x=title.title_id"
+                  query="select author_id as author_x, 
+                                title_id as title_x 
                          from   canonical_author
                          where  ca_status = 1">
             <entity name="author"
                     processor="CachedSqlEntityProcessor"
-                    where="author_ids=title_author.author_id"
+                    where="author_ids=title_author.author_x"
                     query="select A.author_id as author_ids,
                                   A.author_marque as author_marques,
                                   A.author_canonical as author_names,
