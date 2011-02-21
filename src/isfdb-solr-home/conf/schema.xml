@@ -22,27 +22,57 @@
   </types>
     
   <fields>
+
+    <!--
+       FIELDS THAT ARE IN DOCS OF MULTIPLE TYPES
+      -->
+
     <!-- this will be our uniqueKey, so it has to be distinct across
          all types of documents
       -->
     <field name="doc_id" type="string" />
+
     <!-- the type (or domain) of our document -->
     <field name="doc_type" type="string" />
 
-    <field name="title_id" type="string" multiValued="false"/>
-    <field name="author_id" type="string" multiValued="false"/>
-    <field name="author_ids" type="string" multiValued="true" />
+    <!-- external URLs -->
+    <dynamicField name="*_url" type="url" multiValued="false" />
+    <dynamicField name="*_urls" type="url" multiValued="true"/>
+
+    <!-- dates -->
+    <dynamicField name="*_date" type="date" />
+
+    <!-- quick search field -->
+    <field name="catchall" 
+           type="simpletext" 
+           stored="false" 
+           multiValued="true" />
     
+
+    <!-- 
+       TITLE DOC FIELDS
+      -->
+
+    <field name="title_id" type="string" multiValued="false"/>
+
     <!-- broad class of title, good for faceting -->
     <field name="ttype" type="string" />
 
+    <!-- basic text fields -->
+    <field name="title" type="simpletext" />
+    <field name="storylen" type="simpletext" />
+    <field name="translator" type="simpletext" />
+    
+    <!-- list of properies for each author -->
+
+    <field name="author_ids" type="string" multiValued="true" />
+    <field name="author_names" type="simpletext" multiValued="true"/>
     <!-- indicates the author is relatively popular, and should be
          "featured" on the front page of imdb.com when new books come
          out 
       -->
     <field name="author_marques" type="string" multiValued="true" />
-    <field name="marque" type="string" multiValued="false" />
-
+    
     <!-- numeric values that might come in hand for relevancy biasing
          (they all relate to popularity)
       -->
@@ -56,14 +86,6 @@
       -->
     <field name="seriesnum" type="int" />
 
-    <!-- text -->
-    <field name="author_names" type="simpletext" multiValued="true"/>
-    <field name="legal_name" type="simpletext" multiValued="true"/>
-    <field name="canonical_name" type="simpletext" multiValued="true"/>
-    <field name="storylen" type="simpletext" />
-    <field name="translator" type="simpletext" />
-    <field name="title" type="simpletext" />
-
     <!-- ids and foreign keys ... keep an eye on these for later -->
     <!--
     <field name="title_note_id" type="ignored" />
@@ -72,19 +94,22 @@
     <field name="title_synopsis" type="ignored" />
     -->
 
-    <!-- external URLs -->
-    <dynamicField name="*_url" type="url" multiValued="false" />
-    <dynamicField name="*_urls" type="url" multiValued="true"/>
+    <!-- 
+       AUTHOR DOC FIELDS
+      -->
 
-    <!-- dates -->
-    <dynamicField name="*_date" type="date" />
+    <field name="author_id" type="string" multiValued="false"/>
 
+    <!-- basic text fields -->
+    <field name="legal_name" type="simpletext" multiValued="true"/>
+    <field name="canonical_name" type="simpletext" multiValued="true"/>
 
-    <field name="catchall" 
-           type="string" 
-           stored="false" 
-           multiValued="true" />
-    
+    <!-- indicates the author is relatively popular, and should be
+         "featured" on the front page of imdb.com when new books come
+         out 
+      -->
+    <field name="marque" type="string" multiValued="false" />
+
   </fields>
 
   <!-- copy everything into one big field for easy searching -->
