@@ -42,13 +42,18 @@
     <!-- dates -->
     <dynamicField name="*_date" type="date" />
 
+    <!-- numeric values that might come in hand for relevancy biasing
+         (they all relate to popularity)
+      -->
+    <field name="views" type="int" multiValued="false"/>
+    <field name="annualviews" type="int" multiValued="false"/>
+
     <!-- quick search field -->
     <field name="catchall" 
            type="simpletext" 
            stored="false" 
            multiValued="true" />
     
-
     <!-- 
        TITLE DOC FIELDS
       -->
@@ -59,9 +64,9 @@
     <field name="ttype" type="string" />
 
     <!-- basic text fields -->
-    <field name="title" type="simpletext" />
-    <field name="storylen" type="simpletext" />
-    <field name="translator" type="simpletext" />
+    <field name="title" type="simpletext" multiValued="false"/>
+    <field name="storylen" type="simpletext" multiValued="false"/>
+    <field name="translator" type="simpletext" multiValued="false"/>
     
     <!-- list of properies for each author -->
 
@@ -76,15 +81,13 @@
     <!-- numeric values that might come in hand for relevancy biasing
          (they all relate to popularity)
       -->
-    <field name="views" type="int" />
-    <field name="annualviews" type="int" />
-    <field name="rating" type="float" />
+    <field name="rating" type="float" multiValued="false"/>
 
     <!-- The sequence of a title in it's series 
          (if it is in a series)
          DIH uses a default of -1 to mean "not in series" when it's NULL
       -->
-    <field name="seriesnum" type="int" />
+    <field name="seriesnum" type="int" multiValued="false"/>
 
     <!-- ids and foreign keys ... keep an eye on these for later -->
     <!--
@@ -99,10 +102,13 @@
       -->
 
     <field name="author_id" type="string" multiValued="false"/>
+    <field name="emails" type="string" multiValued="true" indexed="false" />
 
     <!-- basic text fields -->
-    <field name="legal_name" type="simpletext" multiValued="true"/>
-    <field name="canonical_name" type="simpletext" multiValued="true"/>
+    <field name="last_name" type="simpletext" multiValued="false"/>
+    <field name="legal_name" type="simpletext" multiValued="false"/>
+    <field name="canonical_name" type="simpletext" multiValued="false"/>
+    <field name="birth_place" type="simpletext" multiValued="false"/>
 
     <!-- indicates the author is relatively popular, and should be
          "featured" on the front page of imdb.com when new books come

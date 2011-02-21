@@ -50,14 +50,33 @@
                 transformer="TemplateTransformer"
                 query="select A.author_id as author_id,
                               A.author_marque as marque,
+                              A.author_lastname as last_name,
                               A.author_canonical as canonical_name,
                               A.author_legalname as legal_name,
+                              A.author_birthplace as birth_place,
                               A.author_birthdate as birth_date,
                               A.author_deathdate as death_date,
+                              A.author_annualviews as annualviews,
+                              A.author_views as views,
                               A.author_image as image_url,
                               A.author_imdb as imdb_url,
                               A.author_wikipedia as wikipedia_url
                        from   authors A">
+          <entity name="author_webpages"
+                  processor="CachedSqlEntityProcessor"
+                  where="author_x=author.author_id"
+                  query="select author_id as author_x, 
+                                url as webpage_urls
+                         from   webpages
+                         where  author_id IS NOT NULL"/>
+          <entity name="author_emails"
+                  processor="CachedSqlEntityProcessor"
+                  where="author_x=author.author_id"
+                  query="select author_id as author_x, 
+                                email_address as emails
+                         from   emails
+                         where  author_id IS NOT NULL
+                         and    email_address IS NOT NULL"/>
           <field  column="doc_id" template="AUTHOR_${author.author_id}" />
           <field  column="doc_type" template="AUTHOR" />
         </entity>
