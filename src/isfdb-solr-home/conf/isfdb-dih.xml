@@ -90,6 +90,15 @@
                          from   pseudonyms p,
                                 authors a
                          where  p.pseudonym = a.author_id "/>
+          <entity name="pseudonym_real_author"
+                  processor="CachedSqlEntityProcessor"
+                  where="author_x=author.author_id"
+                  query="select p.pseudonym as author_x, 
+                                p.author_id as real_author_id,
+                                a.author_canonical as real_canonical_name
+                         from   pseudonyms p,
+                                authors a
+                         where  p.author_id = a.author_id "/>
                          
           <field  column="doc_id" template="AUTHOR_${author.author_id}" />
           <field  column="doc_type" template="AUTHOR" />

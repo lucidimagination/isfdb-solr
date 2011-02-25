@@ -114,6 +114,12 @@
     <!-- pseudonyms for our author -->
     <field name="pseudonym_ids" type="string" multiValued="true" />
     <field name="pseudonym_names" type="simpletext" multiValued="true"/>
+    
+    <!-- filled in if this author is actaully a pseudonym for another
+         author 
+      -->
+    <field name="real_author_id" type="string" multiValued="false" />
+    <field name="real_canonical_name" type="simpletext" multiValued="false"/>
 
     <!-- canonical name, plus all pseudonyms -->
     <field name="names" type="simpletext" multiValued="true" stored="false" />
@@ -129,6 +135,7 @@
   <!-- copy an authors canonical name, and all of they pseudonyms to
        one handy name field 
     -->
+  <copyField source="real_canonical_name" dest="names"/>
   <copyField source="canonical_name" dest="names"/>
   <copyField source="pseudonym_names" dest="names"/>
   
