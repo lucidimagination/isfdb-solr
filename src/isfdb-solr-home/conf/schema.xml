@@ -113,7 +113,12 @@
     <field name="birth_place" type="simpletext" multiValued="false"/>
 
     <!-- is this author a pseudonym for someone else -->
+    <!-- :TODO: couldn't get DIH to populate this cleanly,
+         for now use:  -real_author_id:[* TO *]
+      -->
+    <!--
     <field name="is_pseudonym" type="boolean" multiValued="false" />
+    -->
 
     <!-- pseudonyms for our author -->
     <field name="pseudonym_ids" type="string" multiValued="true" />
