@@ -81,6 +81,16 @@
                          from   emails
                          where  author_id IS NOT NULL
                          and    email_address IS NOT NULL"/>
+          <entity name="author_pseudonyms"
+                  processor="CachedSqlEntityProcessor"
+                  where="author_x=author.author_id"
+                  query="select p.author_id as author_x, 
+                                p.pseudonym as pseudonym_ids,
+                                a.author_canonical as pseudonym_names
+                         from   pseudonyms p,
+                                authors a
+                         where  p.pseudonym = a.author_id "/>
+                         
           <field  column="doc_id" template="AUTHOR_${author.author_id}" />
           <field  column="doc_type" template="AUTHOR" />
         </entity>

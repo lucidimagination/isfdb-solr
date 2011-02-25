@@ -72,6 +72,7 @@
 
     <field name="author_ids" type="string" multiValued="true" />
     <field name="author_names" type="simpletext" multiValued="true"/>
+
     <!-- indicates the author is relatively popular, and should be
          "featured" on the front page of imdb.com when new books come
          out 
@@ -109,6 +110,10 @@
     <field name="legal_name" type="simpletext" multiValued="false"/>
     <field name="canonical_name" type="simpletext" multiValued="false"/>
     <field name="birth_place" type="simpletext" multiValued="false"/>
+
+    <!-- pseudonyms for our author -->
+    <field name="pseudonym_ids" type="string" multiValued="true" />
+    <field name="pseudonym_names" type="simpletext" multiValued="true"/>
 
     <!-- indicates the author is relatively popular, and should be
          "featured" on the front page of imdb.com when new books come
