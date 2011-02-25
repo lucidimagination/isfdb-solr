@@ -115,6 +115,9 @@
     <field name="pseudonym_ids" type="string" multiValued="true" />
     <field name="pseudonym_names" type="simpletext" multiValued="true"/>
 
+    <!-- canonical name, plus all pseudonyms -->
+    <field name="names" type="simpletext" multiValued="true" stored="false" />
+
     <!-- indicates the author is relatively popular, and should be
          "featured" on the front page of imdb.com when new books come
          out 
@@ -123,6 +126,12 @@
 
   </fields>
 
+  <!-- copy an authors canonical name, and all of they pseudonyms to
+       one handy name field 
+    -->
+  <copyField source="canonical_name" dest="names"/>
+  <copyField source="pseudonym_names" dest="names"/>
+  
   <!-- copy everything into one big field for easy searching -->
   <copyField source="*" dest="catchall"/>
 
