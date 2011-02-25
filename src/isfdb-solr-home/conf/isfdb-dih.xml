@@ -1,4 +1,13 @@
 <dataConfig>
+  <script><![CDATA[
+                function isPseudonym(row)    {
+                    var real_id = row.get('real_author_id');
+                    // having a real_id means it's a pseudonym 
+                    // tried just testing null, but it didn't work
+                    row.put('is_pseudonym', (null != real_id));
+                    return row;
+                }
+        ]]></script>
     <dataSource type="JdbcDataSource" 
                 driver="com.mysql.jdbc.Driver"
                 encoding="UTF-8"
@@ -51,7 +60,7 @@
           </entity>
         </entity>
         <entity name="author"
-                transformer="TemplateTransformer"
+                transformer="TemplateTransformer,script:isPseudonym"
                 query="select A.author_id as author_id,
                               A.author_marque as marque,
                               A.author_lastname as last_name,

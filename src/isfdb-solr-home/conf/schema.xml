@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <schema name="isfdb" version="1.2">
   <types>
+    <fieldType name="boolean" class="solr.BoolField"/>
     <fieldType name="date" class="solr.TrieDateField"/>
     <fieldType name="float" class="solr.TrieFloatField"/>
     <fieldType name="int" class="solr.TrieIntField"/>
@@ -110,6 +111,9 @@
     <field name="legal_name" type="simpletext" multiValued="false"/>
     <field name="canonical_name" type="simpletext" multiValued="false"/>
     <field name="birth_place" type="simpletext" multiValued="false"/>
+
+    <!-- is this author a pseudonym for someone else -->
+    <field name="is_pseudonym" type="boolean" multiValued="false" />
 
     <!-- pseudonyms for our author -->
     <field name="pseudonym_ids" type="string" multiValued="true" />
