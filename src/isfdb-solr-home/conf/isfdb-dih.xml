@@ -47,6 +47,15 @@
                                   IF(A.author_wikipedia IS NULL, '',
                                      A.author_wikipedia) as author_wikipedia_urls
                            from   authors A">
+              <entity name="pseudonym_authors"
+                      processor="CachedSqlEntityProcessor"
+                      where="author_z=author.author_ids"
+                      query="select p.pseudonym as author_z, 
+                                    p.author_id as real_author_ids,
+                                    a.author_canonical as real_author_names
+                             from   pseudonyms p,
+                                    authors a
+                             where  p.author_id = a.author_id "/>
             </entity>
           </entity>
         </entity>
