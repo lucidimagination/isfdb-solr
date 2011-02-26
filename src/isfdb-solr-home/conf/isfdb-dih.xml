@@ -37,26 +37,27 @@
                     processor="CachedSqlEntityProcessor"
                     where="author_ids=title_author.author_x"
                     query="select A.author_id as author_ids,
-                                  A.author_marque as author_marques,
+                                  IF(B.author_id IS NULL, A.author_id,
+                                     B.author_id) as real_author_ids,
                                   IF(A.author_canonical IS NULL, '',
                                      A.author_canonical) as author_names,
+                                  IF(B.author_canonical IS NULL,
+                                     IF(A.author_canonical IS NULL, '',
+                                        A.author_canonical),
+                                     B.author_canonical) as real_author_names,
                                   IF(A.author_image IS NULL, '',
                                      A.author_image) as author_image_urls,
                                   IF(A.author_imdb IS NULL, '',
                                      A.author_imdb) as author_imdb_urls,
                                   IF(A.author_wikipedia IS NULL, '',
-                                     A.author_wikipedia) as author_wikipedia_urls
-                           from   authors A">
-              <entity name="pseudonym_authors"
-                      processor="CachedSqlEntityProcessor"
-                      where="author_z=author.author_ids"
-                      query="select p.pseudonym as author_z, 
-                                    p.author_id as real_author_ids,
-                                    a.author_canonical as real_author_names
-                             from   pseudonyms p,
-                                    authors a
-                             where  p.author_id = a.author_id "/>
-            </entity>
+                                     A.author_wikipedia) 
+                                     as author_wikipedia_urls,
+                                  A.author_marque as author_marques
+                           from   authors A 
+                                  left join pseudonyms P 
+                                            on A.author_id=P.pseudonym 
+                                  left join authors B
+                                            on P.author_id=B.author_id"/>
           </entity>
         </entity>
         <entity name="author"
