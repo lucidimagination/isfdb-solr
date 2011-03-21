@@ -21,7 +21,7 @@
                               T.title_copyright as copyright_date,
                               T.title_storylen as storylen,
                               T.title_translator as translator,
-                              T.title_title as imdb_url,
+                              T.title_title as title,
                               T.title_wikipedia as wikipedia_url
                        from   titles T ">
           <field  column="doc_id" template="TITLE_${title.title_id}" />
