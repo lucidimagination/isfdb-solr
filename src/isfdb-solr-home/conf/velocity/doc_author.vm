@@ -13,7 +13,9 @@ Author: <b>#field('canonical_name')</b>
   <div>Pseudonyms:
     <ul>
       #foreach($name in $doc.getFieldValues('pseudonym_names'))
-        <li>$name</li>
+        #set($index = $velocityCount - 1)
+        #set($id = $doc.getFieldValues('pseudonym_ids').toArray().get($index))
+        <li><a href="#url_for_home?q=doc_id:AUTHOR_$id">$name</a></li>
       #end
     </ul>
   </div>

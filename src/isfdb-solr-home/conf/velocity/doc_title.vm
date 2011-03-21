@@ -10,7 +10,9 @@ Title: <b>#field('title')</b> <i>#field('ttype')</i>
   <div>Authors:
     <ul>
       #foreach($name in $doc.getFieldValues('author_names'))
-        <li>$name</li>
+        #set($index = $velocityCount - 1)
+        #set($id = $doc.getFieldValues('author_ids').toArray().get($index))
+        <li><a href="#url_for_home?q=doc_id:AUTHOR_$id">$name</a></li>
       #end
     </ul>
   </div>
