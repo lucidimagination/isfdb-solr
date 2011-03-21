@@ -1,6 +1,5 @@
 #set($searcher=$request.searcher)
 #set($params=$request.params)
-#set($clusters = $response.response.clusters)
 #set($mltResults = $response.response.get("moreLikeThis"))
 #set($annotate = $params.get("annotateBrowse"))
 #parse('query.vm')
