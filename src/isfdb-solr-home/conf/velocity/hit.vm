@@ -1,5 +1,16 @@
 #set($docId = $doc.getFieldValue('id'))
+#set($docType = $doc.getFieldValue('doc_type'))
 
 <div class="result-document">
-  #parse("doc.vm")
+  #if($docType == 'TITLE')
+    #parse("doc_title.vm")
+  #end
+  #if($docType == 'AUTHOR')
+    #parse("doc_author.vm")
+  #end
+
+  #if($params.getBool("debugQuery",false))
+    <a href="#" onclick='jQuery(this).siblings("pre").toggle(); return false;'>toggle explain</a>
+    <pre style="display:none">$response.getExplainMap().get($doc.getFirstValue('id'))</pre>
+  #end
 </div>

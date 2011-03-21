@@ -42,7 +42,7 @@ http://svn.apache.org/repos/asf/lucene/dev/trunk/solr/example/solr/conf/solrconf
   </requestHandler>
 
   <!-- a basic velocity powered UI -->
-  <requestHandler name="/isfdb" class="solr.SearchHandler">
+  <requestHandler name="/browse" class="solr.SearchHandler">
      <lst name="defaults">
        <str name="v.template">browse</str>
        <str name="v.layout">layout</str>

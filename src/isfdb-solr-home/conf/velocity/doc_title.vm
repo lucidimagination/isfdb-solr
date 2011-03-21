@@ -1,0 +1,18 @@
+<div class="result-title">
+Title: <b>#field('title')</b> <i>#field('ttype')</i>
+</div>
+
+#if($doc.containsKey('rating'))<div>Rating: #field('rating')</div>#end
+#if (1 == $doc.getFieldValues('author_names').size())
+  <div>Author: #field('author_names')</div>
+#end
+#if (1 < $doc.getFieldValues('author_names').size())
+  <div>Authors:
+    <ul>
+      #foreach($name in $doc.getFieldValues('author_names'))
+        <li>$name</li>
+      #end
+    </ul>
+  </div>
+#end
+

@@ -1,0 +1,17 @@
+<div class="result-title">
+Author: <b>#field('canonical_name')</b>
+#if($doc.containsKey('real_author_id'))<i>Psuedonym</i>#end
+</div>
+
+#if($doc.containsKey('birth_place'))<div>Birth Place: #field('birth_place')</div>#end
+#if($doc.containsKey('real_canonical_name'))<div>Real Name: #field('real_canonical_name')</div>#end
+
+#if ($doc.containsKey('pseudonym_names'))
+  <div>Pseudonyms:
+    <ul>
+      #foreach($name in $doc.getFieldValues('pseudonym_names'))
+        <li>$name</li>
+      #end
+    </ul>
+  </div>
+#end
