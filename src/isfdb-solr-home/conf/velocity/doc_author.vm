@@ -3,6 +3,9 @@ Author: <b>#field('canonical_name')</b>
 #if($doc.containsKey('real_author_id'))<i>Psuedonym</i>#end
 </div>
 
+<div>
+<a href="#url_for_home?q=author_ids:$doc.getFieldValue('author_id')&fq=doc_type:TITLE">See All Titles</a>
+</div>
 #if($doc.containsKey('birth_place'))<div>Birth Place: #field('birth_place')</div>#end
 #if($doc.containsKey('real_canonical_name'))<div>Real Name: <a href="#url_for_home?q=doc_id:AUTHOR_$doc.getFieldValue('real_author_id')">#field('real_canonical_name')</a></div>#end
 
