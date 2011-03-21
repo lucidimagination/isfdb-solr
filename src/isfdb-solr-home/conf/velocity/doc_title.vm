@@ -4,7 +4,7 @@ Title: <b>#field('title')</b> <i>#field('ttype')</i>
 
 #if($doc.containsKey('rating'))<div>Rating: #field('rating')</div>#end
 #if (1 == $doc.getFieldValues('author_names').size())
-  <div>Author: #field('author_names')</div>
+  <div>Author: <a href="#url_for_home?q=doc_id:AUTHOR_$doc.getFieldValue('author_ids')">#field('author_names')</a></div>
 #end
 #if (1 < $doc.getFieldValues('author_names').size())
   <div>Authors:

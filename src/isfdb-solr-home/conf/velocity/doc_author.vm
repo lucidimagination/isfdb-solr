@@ -4,7 +4,7 @@ Author: <b>#field('canonical_name')</b>
 </div>
 
 #if($doc.containsKey('birth_place'))<div>Birth Place: #field('birth_place')</div>#end
-#if($doc.containsKey('real_canonical_name'))<div>Real Name: #field('real_canonical_name')</div>#end
+#if($doc.containsKey('real_canonical_name'))<div>Real Name: <a href="#url_for_home?q=doc_id:AUTHOR_$doc.getFieldValue('real_author_id')">#field('real_canonical_name')</a></div>#end
 
 #if ($doc.containsKey('pseudonym_names'))
   <div>Pseudonyms:
