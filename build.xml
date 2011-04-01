@@ -177,6 +177,9 @@
     <mkdir dir="work/isfdb-solr-home/lib" />
     <copy file="work/mysql-client.jar"
           todir="work/isfdb-solr-home/lib" />
+    <copy todir="work/isfdb-solr-home/lib">
+      <fileset dir="work/apache-solr-${apache.solr.version}/dist/" includes="*dataimporthandler*.jar"/>
+    </copy>
 
   </target>
 
