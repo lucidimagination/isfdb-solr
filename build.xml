@@ -17,7 +17,7 @@
   <!-- :TODO: anyway to dynamicly pick a mirror URL? -->
   <property name="url.apache.mirror" 
             value="http://mirror.cloudera.com/apache" />
-  <property name="apache.solr.version" value="1.4.1" />
+  <property name="apache.solr.version" value="3.1.0" />
   <property name="url.apache.solr" 
             value="${url.apache.mirror}/lucene/solr/${apache.solr.version}/apache-solr-${apache.solr.version}.zip" />
   
