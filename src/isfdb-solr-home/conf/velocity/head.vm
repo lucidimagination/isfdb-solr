@@ -32,7 +32,7 @@
            extraParams:{
              'terms.prefix': function() { return $("\#q").val();},
              'terms.sort': 'count',
-             'terms.fl': 'name',
+             'terms.fl': 'catchall',
              'wt': 'velocity',
              'v.template': 'suggest'
            }
