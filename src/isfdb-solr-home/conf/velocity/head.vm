@@ -30,7 +30,7 @@
     $(document).ready(function(){
       $("\#q").autocomplete('#{url_for_solr}/terms', {  ## backslash escaped #q as that is a macro defined in VM_global_library.vm
            extraParams:{
-             'terms.prefix': function() { return $("\#q").val();},
+             'terms.prefix': function() { return $("\#q").val().toLowerCase();},
              'terms.sort': 'count',
              'terms.fl': 'catchall',
              'wt': 'velocity',
