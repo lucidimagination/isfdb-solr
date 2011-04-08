@@ -114,11 +114,12 @@ http://svn.apache.org/repos/asf/lucene/dev/trunk/solr/example/solr/conf/solrconf
   <!-- for autocomplete suggestions -->
   <requestHandler class="solr.SearchHandler" name="/suggest">
     <lst name="defaults">
-      <str name="spellcheck">true</str>
-      <str name="spellcheck.dictionary">suggest</str>
-      <str name="spellcheck.onlyMorePopular">true</str>
-      <str name="spellcheck.count">5</str>
-      <str name="spellcheck.collate">true</str>
+      <bool name="spellcheck">true</bool>
+      <str  name="spellcheck.dictionary">suggest</str>
+      <bool name="spellcheck.onlyMorePopular">true</bool>
+      <int  name="spellcheck.count">5</int>
+      <bool name="spellcheck.collate">true</bool>
+      <int  name="spellcheck.maxCollations">10</int>
     </lst>
     <arr name="components">
       <str>suggest</str>
