@@ -49,6 +49,12 @@
     <field name="views" type="int" multiValued="false"/>
     <field name="annualviews" type="int" multiValued="false"/>
 
+    <!-- Field used by Suggester for autocompletion -->
+    <field name="autocomplete" 
+           type="simpletext" 
+           stored="false" 
+           multiValued="true" />
+
     <!-- quick search field -->
     <field name="catchall" 
            type="simpletext" 
@@ -149,6 +155,10 @@
   <copyField source="real_canonical_name" dest="names"/>
   <copyField source="canonical_name" dest="names"/>
   <copyField source="pseudonym_names" dest="names"/>
+
+  <!-- copy author names and title titles to a field to autocomplete -->
+  <copyField source="canonical_name" dest="autocomplete"/>
+  <copyField source="title" dest="autocomplete"/>
   
   <!-- copy everything into one big field for easy searching -->
   <copyField source="*" dest="catchall"/>

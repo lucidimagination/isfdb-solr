@@ -105,7 +105,7 @@ http://svn.apache.org/repos/asf/lucene/dev/trunk/solr/example/solr/conf/solrconf
       <str name="classname">org.apache.solr.spelling.suggest.Suggester</str>
       <str name="lookupImpl">org.apache.solr.spelling.suggest.tst.TSTLookup</str>
       <!-- the indexed field to derive suggestions from -->      
-      <str name="field">catchall</str>  
+      <str name="field">autocomplete</str>  
       <float name="threshold">0.0</float>
       <str name="buildOnCommit">true</str>
     </lst>
