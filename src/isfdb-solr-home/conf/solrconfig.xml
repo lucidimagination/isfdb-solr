@@ -22,6 +22,25 @@ http://svn.apache.org/repos/asf/lucene/dev/trunk/solr/example/solr/conf/solrconf
     <requestParsers enableRemoteStreaming="true" multipartUploadLimitInKB="2048" />
   </requestDispatcher>
 
+  <!-- Use Cold Searcher
+       
+       If a search request comes in and there is no current
+       registered searcher, then immediately register the still
+       warming searcher and use it.  If "false" then all requests
+       will block until the first searcher is done warming.
+    -->
+  <useColdSearcher>false</useColdSearcher>
+
+  <!-- build our autocomplete suggestions on startup -->
+  <listener event="firstSearcher" class="solr.QuerySenderListener">
+    <arr name="queries">
+      <lst>
+        <str name="qt">/suggest</str>
+        <bool name="spellcheck.build">true</bool>
+      </lst>
+    </arr>
+  </listener>
+
   <!-- basic handler supporting default query syntax -->
   <requestHandler name="standard" class="solr.SearchHandler" default="true">
      <lst name="defaults">
