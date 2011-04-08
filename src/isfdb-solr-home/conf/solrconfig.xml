@@ -79,6 +79,32 @@ http://svn.apache.org/repos/asf/lucene/dev/trunk/solr/example/solr/conf/solrconf
     </arr>
   </requestHandler>
 
+  <!-- SpellCheckComponent used for autocomplete suggestions -->
+  <searchComponent class="solr.SpellCheckComponent" name="suggest">
+    <lst name="spellchecker">
+      <str name="name">suggest</str>
+      <str name="classname">org.apache.solr.spelling.suggest.Suggester</str>
+      <str name="lookupImpl">org.apache.solr.spelling.suggest.tst.TSTLookup</str>
+      <!-- the indexed field to derive suggestions from -->      
+      <str name="field">catchall</str>  
+      <float name="threshold">0.0</float>
+      <str name="buildOnCommit">true</str>
+    </lst>
+  </searchComponent>
+
+  <!-- for autocomplete suggestions -->
+  <requestHandler class="solr.SearchHandler" name="/suggest">
+    <lst name="defaults">
+      <str name="spellcheck">true</str>
+      <str name="spellcheck.dictionary">suggest</str>
+      <str name="spellcheck.onlyMorePopular">true</str>
+      <str name="spellcheck.count">5</str>
+      <str name="spellcheck.collate">true</str>
+    </lst>
+    <arr name="components">
+      <str>suggest</str>
+    </arr>
+  </requestHandler>
 
   <queryResponseWriter name="velocity" class="solr.VelocityResponseWriter"/>
 
