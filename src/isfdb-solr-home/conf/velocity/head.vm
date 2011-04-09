@@ -29,8 +29,10 @@
     <script>
     $(document).ready(function(){
       ## backslash escaped #q as that is a macro defined in VM_global_library.vm
-      $("\#q").autocomplete('#{url_for_solr}/suggest', {  
-         }
+      $("\#q").autocomplete('#{url_for_solr}/suggest', 
+      			    { 
+ 			      "selectFirst": false
+			    }
       );
     });
 
