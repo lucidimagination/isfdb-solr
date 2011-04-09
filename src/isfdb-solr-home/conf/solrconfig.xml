@@ -120,6 +120,8 @@ http://svn.apache.org/repos/asf/lucene/dev/trunk/solr/example/solr/conf/solrconf
       <int  name="spellcheck.count">5</int>
       <bool name="spellcheck.collate">true</bool>
       <int  name="spellcheck.maxCollations">10</int>
+      <str  name="v.template">suggest</str>
+      <str  name="wt">velocity</str>
     </lst>
     <arr name="components">
       <str>suggest</str>
