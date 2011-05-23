@@ -27,7 +27,7 @@ How To Get Started (These steps must be done once):
   mysql.exe (if the "mysql" command line client is not on your PATH)
 
 * Run "ant fetch" to download a recent copy of the ISFDB Database
-  backups, and a copy of Apache Sole
+  backups, and a copy of Apache Solr
 
 * Run "ant load-mysql" to populate your MySql Database with the ISDB
   Database backup data.
