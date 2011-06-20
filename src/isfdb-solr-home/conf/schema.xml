@@ -58,7 +58,8 @@
     <!-- quick search field -->
     <field name="catchall" 
            type="simpletext" 
-           stored="false" 
+           stored="false"
+           omitNorms="true"
            multiValued="true" />
     
     <!-- 
