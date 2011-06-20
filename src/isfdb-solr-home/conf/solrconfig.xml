@@ -62,13 +62,16 @@ http://svn.apache.org/repos/asf/lucene/dev/trunk/solr/example/solr/conf/solrconf
 
   <!-- a basic velocity powered UI -->
   <requestHandler name="/browse" class="solr.SearchHandler">
+     <lst name="invariants">
+       <str name="q">{!boost b=sum(views,annualviews) v=$qq}</str>
+     </lst>
      <lst name="defaults">
        <str name="v.template">browse</str>
        <str name="v.layout">layout</str>
        <str name="v.properties">velocity.properties</str>
        <str name="title">Solr Powered ISFDB</str>
        <str name="wt">velocity</str>
-       <str name="q">*:*</str>
+       <str name="qq">*:*</str>
        <str name="rows">10</str>
        <str name="fl">*,score</str>
        <bool name="facet">true</bool>
