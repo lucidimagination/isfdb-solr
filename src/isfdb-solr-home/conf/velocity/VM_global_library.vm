@@ -4,7 +4,7 @@
 #macro(url_for_solr)/solr#if($request.core.name != "")/$request.core.name#end#end
 #macro(url_for_home)#url_for_solr/browse#end
 
-#macro(q)&q=$!{esc.url($params.get('q'))}#end
+#macro(q)&qq=$!{esc.url($params.get('qq'))}#end
 
 #macro(fqs $p)#foreach($fq in $p)#if($velocityCount>1)&#{end}fq=$esc.url($fq)#end#end
 
