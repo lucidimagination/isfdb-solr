@@ -72,7 +72,11 @@ http://svn.apache.org/repos/asf/lucene/dev/trunk/solr/example/solr/conf/solrconf
        <str name="title">Solr Powered ISFDB</str>
        <str name="wt">velocity</str>
        <str name="q.alt">*:*</str>
-       <str name="qf">canonical_name^1000 legal_name pseudonym_names catchall^0.001</str>
+       <str name="qf">
+         canonical_name^1000 legal_name pseudonym_names 
+         title^1000
+         catchall^0.001
+       </str>
        <str name="qq"></str>
        <str name="rows">10</str>
        <str name="fl">*,score</str>
