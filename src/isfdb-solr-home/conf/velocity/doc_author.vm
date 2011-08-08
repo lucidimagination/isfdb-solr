@@ -1,5 +1,5 @@
 <div class="result-title">
-Author: <b>#field('canonical_name')</b>
+Author: <b><a class="ext" href="http://www.isfdb.org/cgi-bin/ea.cgi?#field('author_id')">#field('canonical_name')</a></b>
 #if($doc.containsKey('real_author_id'))<i>Psuedonym</i>#end
 </div>
 

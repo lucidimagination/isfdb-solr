@@ -26,6 +26,9 @@ body {
 a {
   color: #43a4b1;
 }
+a.ext {
+  color: #430000;
+}
 
 .navigators {
   float: left;

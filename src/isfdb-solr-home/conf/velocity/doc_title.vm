@@ -1,5 +1,5 @@
 <div class="result-title">
-Title: <b>#field('title')</b> <i>#field('ttype')</i>
+Title: <b><a class="ext" href="http://www.isfdb.org/cgi-bin/title.cgi?#field('title_id')">#field('title')</a></b> <i>#field('ttype')</i>
 </div>
 
 #if($doc.containsKey('rating'))<div>Rating: #field('rating')</div>#end
