@@ -4,7 +4,7 @@ Title: <b>#field('title')</b> <i>#field('ttype')</i>
 
 #if($doc.containsKey('rating'))<div>Rating: #field('rating')</div>#end
 #if (1 == $doc.getFieldValues('author_names').size())
-  <div>Author: <a href="#url_for_home?q=doc_id:AUTHOR_$doc.getFieldValue('author_ids')">#field('author_names')</a></div>
+  <div>Author: <a href="#url_for_home?fq=doc_id:AUTHOR_$doc.getFieldValue('author_ids')">#field('author_names')</a></div>
 #end
 #if (1 < $doc.getFieldValues('author_names').size())
   <div>Authors:
@@ -12,7 +12,7 @@ Title: <b>#field('title')</b> <i>#field('ttype')</i>
       #foreach($name in $doc.getFieldValues('author_names'))
         #set($index = $velocityCount - 1)
         #set($id = $doc.getFieldValues('author_ids').toArray().get($index))
-        <li><a href="#url_for_home?q=doc_id:AUTHOR_$id">$name</a></li>
+        <li><a href="#url_for_home?fq=doc_id:AUTHOR_$id">$name</a></li>
       #end
     </ul>
   </div>
